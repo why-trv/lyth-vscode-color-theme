@@ -1,8 +1,6 @@
 # Lyth Color Theme for VS Code
 
-This is a work-in-progress attempt at a VS Code color theme that would offer decent semantic highlighting for C++.
-
-I have yet to test this with any other languages (JavaScript, CSS, HTML, Markdown, etc.)
+This is a work-in-progress attempt at a VS Code color theme that would offer decent semantic highlighting for C++ (but also other languages I use from time to time, e.g. TypeScript / JavaScript, Python, Markdown, HTML, YAML, TOML).
 
 ## Building / Debugging
 
@@ -30,10 +28,10 @@ This will look for `.vscode` and `.cursor` directories in your home path and cop
 
 ## Setup
 
-The project is meant to facilitate creation of multiple themes using  relatively short color palette definitions in `src/defs`.
+The project is meant to facilitate creation of multiple themes using relatively short color palette definitions in `src/defs`.
 
-- In `package.json`, the `contributes.themes` points should list all the themes you want to build.
-- `src/defs` should contain `.ts` files with palette definitions. The file names should match the `.json` file name at `contributes.themes[].path` in `package.json`.
+- `src/defs` should contain `.ts` files with theme definitions. A theme can be defines from scratch (e.g. `lyth-dark.ts`) or inherited from another theme (e.g. `lyth-dark-mono.ts`).
+- The build process will update the `contributes.themes[]` section of `package.json` automatically.
 
 ## Notes
 
@@ -41,10 +39,10 @@ Token scopes differ depending on the language server used (`clangd` or `cpptools
 
 ## Goals / Considerations
 
-- Neutral gray backgrounds to reduce messing with perception of color temperature in app GUIs and graphics
-- Stuff like `&` for references and `*` for pointers should be contrasting enough to easily notice
-- Differentiate class / class template declarations and definitions from instantinations using bold style, same for functions declarations and calls
-- Differentiate local variables, member variables and funciton arguments if possible (maybe make globals stand out as well?)
-- Try to avoid making all keywords, casts etc. a big purple mess
+- Use OKLCH, it's much easier to shift colors around.
+- Use neutral gray backgrounds. Tinting is likely to mess with color temperature perception when doing GUI / graphics design work.
+- Make use of lightness to differentiate stuff. Let more 'technical' bits like punctuation, namespace prefixes and casts fade to background.
+- Stuff like `&` for references and `*` for pointers should be contrasting enough to easily notice.
+- Differentiate class / class template declarations and definitions from instantiations using bold style, same for functions declarations and calls
+- Differentiate local variables, member variables and function arguments if possible (maybe make globals stand out as well?)
 - Obviously, macros should be easily distinguishable (maybe differentiate macros definitions from 'calls' as well?)
-- Could be great if we'll be able to differentiate between e.g. `const` and non-`const` methods e.g. using italics (doesn't seem to be possible as of now)
