@@ -363,6 +363,15 @@
       }
     },
     {
+      "name": "Number Exponent, Suffix etc.",
+      "scope": [
+        "keyword.other.unit"
+      ],
+      "settings": {
+        "foreground": "#d67f4a"
+      }
+    },
+    {
       "name": "Argument",
       "scope": [
         "variable.parameter"
@@ -375,7 +384,6 @@
     {
       "name": "Keyword (Other)",
       "scope": [
-        "keyword.other.unit",
         "keyword.other"
       ],
       "settings": {

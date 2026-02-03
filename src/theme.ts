@@ -114,7 +114,7 @@ export function createTheme(name: string, palette: Palette) {
       "type.defaultLibrary": palette.keyword,
       "class.deduced": palette.keyword,
       "variable.readonly": palette.constantVar,
-      "bracket": palette.bracket,
+      bracket: palette.bracket,
     }),
     tokenColors: createTokens([
       [
@@ -127,11 +127,7 @@ export function createTheme(name: string, palette: Palette) {
         palette.foreground,
         ["variable", "string constant.other.placeholder"],
       ],
-      [
-        "Constant Variable",
-        palette.constantVar,
-        ["variable.other.constant"],
-      ],
+      ["Constant Variable", palette.constantVar, ["variable.other.constant"]],
       ["Colors", palette.altForeground, ["constant.other.color"]],
       ["Invalid", palette.invalid, ["invalid", "invalid.illegal"]],
       ["Keyword, Storage", palette.keyword, ["keyword", "storage.type"]],
@@ -166,7 +162,11 @@ export function createTheme(name: string, palette: Palette) {
         ["entity.name.type.template.cpp"],
       ],
       ["Operator", palette.operator, ["keyword.operator"]],
-      ["Pointer and Reference", palette.ptrAndRef, ["storage.modifier.pointer", "storage.modifier.reference"]],
+      [
+        "Pointer and Reference",
+        palette.ptrAndRef,
+        ["storage.modifier.pointer", "storage.modifier.reference"],
+      ],
       ["Cast", palette.cast, ["keyword.operator.cast"]],
       [
         "Tag",
@@ -207,7 +207,7 @@ export function createTheme(name: string, palette: Palette) {
       [
         "Template Argument Name", // (?)
         palette.templateArg,
-        ["entity.name.type.parameter"]
+        ["entity.name.type.parameter"],
       ],
       [
         "Class, Struct, Type Declaration",
@@ -308,12 +308,13 @@ export function createTheme(name: string, palette: Palette) {
           "constant.escape",
         ],
       ],
-      ["Argument", palette.argument, "italic", ["variable.parameter"]],
       [
-        "Keyword (Other)",
-        palette.keywordOther,
-        ["keyword.other.unit", "keyword.other"],
+        "Number Exponent, Suffix etc.",
+        palette.numberExtras,
+        ["keyword.other.unit"],
       ],
+      ["Argument", palette.argument, "italic", ["variable.parameter"]],
+      ["Keyword (Other)", palette.keywordOther, ["keyword.other"]],
       [
         "String, Symbols, Inherited Class, Markup Heading",
         palette.string,
@@ -328,9 +329,9 @@ export function createTheme(name: string, palette: Palette) {
         ],
       ],
       [
-        'String Template Expression',
+        "String Template Expression",
         palette.stringTemplate,
-        ["punctuation.definition.template-expression"]
+        ["punctuation.definition.template-expression"],
       ],
       // Web etc. Mostly untouched since theme generation
       [

@@ -22,6 +22,7 @@ const definition: ThemeDefinition = {
     stringTemplate: [0.82, 0.1, 200],
     escapeChar: [0.78, 0.12, 170],
     number: [0.76, 0.128, 50],
+    numberExtras: [0.68, 0.128, 50], // E.g. exponent, suffix etc.
     class: [0.73, 0.1, 357],
     namespacePrefix: [0.6, 0.06, 357],
     lambdaReturnType: [0.745, 0.073, 78.8],
