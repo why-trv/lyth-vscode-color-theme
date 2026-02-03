@@ -96,6 +96,7 @@ export function createTheme(name: string, palette: Palette) {
         ["entity.name.type.template.cpp"],
       ],
       ["Operator", palette.operator, ["keyword.operator"]],
+      ["Pointer and Reference", palette.ptrAndRef, ["storage.modifier.pointer", "storage.modifier.reference"]],
       ["Cast", palette.cast, ["keyword.operator.cast"]],
       [
         "Tag",
@@ -314,7 +315,7 @@ export function createTheme(name: string, palette: Palette) {
       ["Deleted", palette.invalid, "markup.deleted"],
       ["Changed", palette.changed, "markup.changed"],
       ["Regular Expressions", palette.regexp, "string.regexp"],
-      ["Escape Characters", palette.misc, "constant.character.escape"],
+      ["Escape Characters", palette.escapeChar, "constant.character.escape"],
       ["URL", "underline", ["*url*", "*link*", "*uri*"]],
       [
         "Decorators",

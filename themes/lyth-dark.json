@@ -171,6 +171,16 @@
       }
     },
     {
+      "name": "Pointer and Reference",
+      "scope": [
+        "storage.modifier.pointer",
+        "storage.modifier.reference"
+      ],
+      "settings": {
+        "foreground": "#98cde7"
+      }
+    },
+    {
       "name": "Cast",
       "scope": [
         "keyword.operator.cast"
@@ -384,7 +394,7 @@
         "meta.group.braces.curly constant.other.object.key.js string.unquoted.label.js"
       ],
       "settings": {
-        "foreground": "#91c985"
+        "foreground": "#8fca83"
       }
     },
     {
@@ -494,7 +504,7 @@
         "markup.inserted"
       ],
       "settings": {
-        "foreground": "#91c985"
+        "foreground": "#8fca83"
       }
     },
     {
@@ -530,7 +540,7 @@
         "constant.character.escape"
       ],
       "settings": {
-        "foreground": "#898989"
+        "foreground": "#5ad0ac"
       }
     },
     {
