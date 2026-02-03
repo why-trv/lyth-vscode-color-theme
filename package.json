@@ -2,7 +2,7 @@
   "name": "lyth-vscode-color-theme",
   "displayName": "Lyth VS Code Color Theme",
   "description": "An attempt at a decently semantic VS Code theme for C++",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "publisher": "Yuri Turov",
   "icon": "icon.png",
   "engines": {
@@ -17,6 +17,16 @@
         "label": "Lyth Dark",
         "uiTheme": "vs-dark",
         "path": "./themes/lyth-dark.json"
+      },
+      {
+        "label": "Lyth Dark Mono",
+        "uiTheme": "vs-dark",
+        "path": "./themes/lyth-dark-mono.json"
+      },
+      {
+        "label": "Lyth Dark Adjusted",
+        "uiTheme": "vs-dark",
+        "path": "./themes/lyth-dark-adjusted.json"
       }
     ]
   },

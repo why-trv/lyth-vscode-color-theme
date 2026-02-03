@@ -29,7 +29,7 @@ export type SemanticTokenSettings = Color | {
   fontStyle?: FontStyle;
   bold?: boolean;
   italic?: boolean;
-  underline?: boolean;  
+  underline?: boolean;
 };
 
 export type Scope = string[];
@@ -59,4 +59,34 @@ export interface Theme {
   tokenColors: TokenItem[];
   semanticHighlighting?: boolean;
   semanticTokenColors?: SemanticTokenColors;
+}
+
+// OKLCH color tuple: [lightness, chroma, hue] or [lightness, chroma, hue, alpha]
+export type OklchColor = [number, number, number] | [number, number, number, number];
+
+// Palette using OKLCH tuples (for definition)
+export interface OklchPalette {
+  [key: string]: OklchColor;
+}
+
+// Global color adjustments applied to the palette
+export interface ColorAdjustments {
+  brightness?: number;   // -1 to 1: shifts L
+  contrast?: number;     // -1 to 1: scales L around midpoint
+  saturation?: number;   // -1 to 1: scales C (vibrance)
+  hueShift?: number;     // -180 to 180: rotates H
+  shadows?: number;      // -1 to 1: affects low-L colors more
+  highlights?: number;   // -1 to 1: affects high-L colors more
+}
+
+// VSCode UI theme type
+export type UiTheme = "vs" | "vs-dark" | "hc-black" | "hc-light";
+
+// Theme definition that can extend another theme
+export interface ThemeDefinition {
+  name: string;
+  uiTheme?: UiTheme;                    // VSCode UI theme (default: "vs-dark")
+  extends?: string;                     // Parent theme name
+  palette?: Partial<OklchPalette>;      // Base or override colors
+  adjustments?: ColorAdjustments;       // Replaces parent adjustments
 }

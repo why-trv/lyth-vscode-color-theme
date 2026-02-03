@@ -6,6 +6,8 @@ import type {
   TokenSettings,
   SemanticTokenSettings,
   SemanticTokenColors,
+  OklchColor,
+  ColorAdjustments,
 } from "./types";
 
 // sRGB hex to OKLCH conversion (for reference/migration)
@@ -72,6 +74,100 @@ export function oklch(L: number, C: number, H: number, alpha?: number): Color {
   const toHex = (n: number) => n.toString(16).padStart(2, "0");
   const alphaHex = alpha !== undefined ? toHex(Math.round(alpha * 255)) : "";
   return `#${toHex(r)}${toHex(g)}${toHex(bVal)}${alphaHex}` as Color;
+}
+
+// Convert OklchColor tuple to hex Color
+export function oklchToHex(color: OklchColor): Color {
+  const [L, C, H, alpha] = color;
+  return oklch(L, C, H, alpha);
+}
+
+// Clamp a value between min and max
+function clamp(value: number, min: number, max: number): number {
+  return Math.max(min, Math.min(max, value));
+}
+
+// Apply brightness adjustment: shifts L by amount (-1 to 1)
+export function applyBrightness(color: OklchColor, amount: number): OklchColor {
+  const [L, C, H, alpha] = color;
+  const newL = clamp(L + amount, 0, 1);
+  return alpha !== undefined ? [newL, C, H, alpha] : [newL, C, H];
+}
+
+// Apply contrast adjustment: scales L around midpoint (-1 to 1)
+// Positive values increase contrast, negative decrease
+export function applyContrast(color: OklchColor, amount: number): OklchColor {
+  const [L, C, H, alpha] = color;
+  const midpoint = 0.5;
+  // Scale factor: 1 + amount gives range 0 to 2
+  const factor = 1 + amount;
+  const newL = clamp(midpoint + (L - midpoint) * factor, 0, 1);
+  return alpha !== undefined ? [newL, C, H, alpha] : [newL, C, H];
+}
+
+// Apply saturation adjustment: scales C (chroma) (-1 to 1)
+// Positive values increase saturation, negative decrease
+export function applySaturation(color: OklchColor, amount: number): OklchColor {
+  const [L, C, H, alpha] = color;
+  // Scale factor: 1 + amount gives range 0 to 2
+  const factor = 1 + amount;
+  const newC = Math.max(0, C * factor);
+  return alpha !== undefined ? [L, newC, H, alpha] : [L, newC, H];
+}
+
+// Apply hue shift: rotates H by amount (-180 to 180)
+export function applyHueShift(color: OklchColor, amount: number): OklchColor {
+  const [L, C, H, alpha] = color;
+  let newH = (H + amount) % 360;
+  if (newH < 0) newH += 360;
+  return alpha !== undefined ? [L, C, newH, alpha] : [L, C, newH];
+}
+
+// Apply shadows adjustment: affects low-L colors more (-1 to 1)
+// Positive values lighten shadows, negative darken them
+export function applyShadows(color: OklchColor, amount: number): OklchColor {
+  const [L, C, H, alpha] = color;
+  // Weight decreases as L increases (more effect on darker colors)
+  const weight = 1 - L;
+  const newL = clamp(L + amount * weight * 0.5, 0, 1);
+  return alpha !== undefined ? [newL, C, H, alpha] : [newL, C, H];
+}
+
+// Apply highlights adjustment: affects high-L colors more (-1 to 1)
+// Positive values brighten highlights, negative darken them
+export function applyHighlights(color: OklchColor, amount: number): OklchColor {
+  const [L, C, H, alpha] = color;
+  // Weight increases as L increases (more effect on brighter colors)
+  const weight = L;
+  const newL = clamp(L + amount * weight * 0.5, 0, 1);
+  return alpha !== undefined ? [newL, C, H, alpha] : [newL, C, H];
+}
+
+// Apply all adjustments to a color in a defined order
+export function applyAdjustments(color: OklchColor, adjustments: ColorAdjustments): OklchColor {
+  let result = color;
+
+  // Apply in a consistent order
+  if (adjustments.shadows !== undefined) {
+    result = applyShadows(result, adjustments.shadows);
+  }
+  if (adjustments.highlights !== undefined) {
+    result = applyHighlights(result, adjustments.highlights);
+  }
+  if (adjustments.brightness !== undefined) {
+    result = applyBrightness(result, adjustments.brightness);
+  }
+  if (adjustments.contrast !== undefined) {
+    result = applyContrast(result, adjustments.contrast);
+  }
+  if (adjustments.saturation !== undefined) {
+    result = applySaturation(result, adjustments.saturation);
+  }
+  if (adjustments.hueShift !== undefined) {
+    result = applyHueShift(result, adjustments.hueShift);
+  }
+
+  return result;
 }
 
 type TokenDefinition = [

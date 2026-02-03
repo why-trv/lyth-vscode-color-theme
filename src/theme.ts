@@ -1,5 +1,75 @@
-import type { Theme, Palette } from "./types";
-import { createSemanticTokens, createTokens } from "./utils";
+import type { Theme, Palette, ThemeDefinition, OklchPalette, OklchColor } from "./types";
+import { createSemanticTokens, createTokens, applyAdjustments, oklchToHex } from "./utils";
+
+// Registry of theme definitions
+const themeRegistry = new Map<string, ThemeDefinition>();
+
+// Register a theme definition
+export function registerTheme(def: ThemeDefinition): void {
+  themeRegistry.set(def.name, def);
+}
+
+// Get a registered theme definition
+export function getThemeDefinition(name: string): ThemeDefinition | undefined {
+  return themeRegistry.get(name);
+}
+
+// Resolve a theme by name: handles inheritance, applies adjustments, converts to hex palette
+export function resolveTheme(name: string): Palette {
+  const def = themeRegistry.get(name);
+  if (!def) {
+    throw new Error(`Theme "${name}" not found in registry`);
+  }
+
+  // Start with parent's palette if extending, otherwise empty
+  let oklchPalette: OklchPalette = {};
+
+  if (def.extends) {
+    const parentDef = themeRegistry.get(def.extends);
+    if (!parentDef) {
+      throw new Error(`Parent theme "${def.extends}" not found for "${name}"`);
+    }
+    // Recursively resolve parent to get its merged palette (without adjustments applied)
+    oklchPalette = resolveOklchPalette(def.extends);
+  }
+
+  // Merge in this theme's palette overrides
+  if (def.palette) {
+    oklchPalette = { ...oklchPalette, ...def.palette } as OklchPalette;
+  }
+
+  // Apply this theme's adjustments (replaces parent's adjustments)
+  const adjustments = def.adjustments;
+
+  // Convert to hex palette, applying adjustments if present
+  const hexPalette: Palette = {};
+  for (const [key, color] of Object.entries(oklchPalette)) {
+    const adjustedColor = adjustments ? applyAdjustments(color, adjustments) : color;
+    hexPalette[key] = oklchToHex(adjustedColor);
+  }
+
+  return hexPalette;
+}
+
+// Internal: resolve to OKLCH palette without applying adjustments (for inheritance)
+function resolveOklchPalette(name: string): OklchPalette {
+  const def = themeRegistry.get(name);
+  if (!def) {
+    throw new Error(`Theme "${name}" not found in registry`);
+  }
+
+  let oklchPalette: OklchPalette = {};
+
+  if (def.extends) {
+    oklchPalette = resolveOklchPalette(def.extends);
+  }
+
+  if (def.palette) {
+    oklchPalette = { ...oklchPalette, ...def.palette } as OklchPalette;
+  }
+
+  return oklchPalette;
+}
 
 export function createTheme(name: string, palette: Palette) {
   const theme: Theme = {
@@ -256,6 +326,11 @@ export function createTheme(name: string, palette: Palette) {
           "markup.inserted.git_gutter",
           "meta.group.braces.curly constant.other.object.key.js string.unquoted.label.js",
         ],
+      ],
+      [
+        'String Template Expression',
+        palette.stringTemplate,
+        ["punctuation.definition.template-expression"]
       ],
       // Web etc. Mostly untouched since theme generation
       [
