@@ -45,6 +45,16 @@ const definition: ThemeDefinition = {
     lineHighlightBorder: lch(0.264, 0.024, 290),
     wordHighlightBg: lch(0.437, 0.024, 230, 0.227),
     wordHighlightBorder: lch(0.437, 0.024, 230),
+    selectionBg: lch(0.3, 0.02, 290),
+    inactiveSelectionBg: lch(0.28, 0.01, 290),
+    selectionHighlightBg: lch(0.27, 0.01, 290),
+    selectionHighlightBorder: lch(0.35, 0.02, 290),
+    findMatchBg: lch(0.32, 0.15, 20),
+    // findMatchHighlightFg
+    // findMatchFg
+    findMatchHighlightBg: lch(0.3, 0.15, 20),
+    // findMatchHighlightFg
+    findMatchHighlightBorder: lch(0.8, 0.02, 290),
     //
     regexp: lch(0.705, 0.095, 211.4),
     changed: lch(0.728, 0.148, 317.1),

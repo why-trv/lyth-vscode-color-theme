@@ -91,6 +91,18 @@ export function createTheme(name: string, palette: Palette) {
       "editor.wordHighlightBackground": palette.wordHighlightBg,
       "editor.wordHighlightBorder": palette.wordHighlightBorder,
 
+      "editor.selectionBackground": palette.selectionBg,
+      "editor.inactiveSelectionBackground": palette.inactiveSelectionBg,
+      "editor.selectionHighlightBackground": palette.selectionHighlightBg,
+      "editor.selectionHighlightBorder": palette.selectionHighlightBorder,
+
+      "editor.findMatchBackground": palette.findMatchBg,
+      "editor.findMatchForeground": palette.findMatchFg,
+      "editor.findMatchBorder": palette.findMatchBorder,
+      "editor.findMatchHighlightBackground": palette.findMatchHighlightBg,
+      "editor.findMatchHighlightForeground": palette.findMatchHighlightFg,
+      "editor.findMatchHighlightBorder": palette.findMatchHighlightBorder,
+
       "editorBracketHighlight.foreground1": palette.bracket1,
       "editorBracketHighlight.foreground2": palette.bracket2,
       "editorBracketHighlight.foreground3": palette.bracket3,
