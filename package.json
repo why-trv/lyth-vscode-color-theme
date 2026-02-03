@@ -19,6 +19,11 @@
         "path": "./themes/lyth-dark.json"
       },
       {
+        "label": "Lyth Dark Lum Tweak",
+        "uiTheme": "vs-dark",
+        "path": "./themes/lyth-dark-lum-tweak.json"
+      },
+      {
         "label": "Lyth Dark Mono",
         "uiTheme": "vs-dark",
         "path": "./themes/lyth-dark-mono.json"
