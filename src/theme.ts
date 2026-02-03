@@ -141,7 +141,7 @@ export function createTheme(name: string, palette: Palette) {
         ["storage.modifier", "keyword.operator.noexcept"],
       ],
       ["Requires Keyword", palette.keyword, "bold", ["keyword.other.requires"]],
-      ["Control Keywords", palette.control, "bold", ["keyword.control"]],
+      ["Control Keywords", palette.keywordControl, "bold", ["keyword.control"]],
       [
         "Misc",
         palette.misc,
