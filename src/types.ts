@@ -61,12 +61,13 @@ export interface Theme {
   semanticTokenColors?: SemanticTokenColors;
 }
 
-// OKLCH color tuple: [lightness, chroma, hue] or [lightness, chroma, hue, alpha]
-export type OklchColor = [number, number, number] | [number, number, number, number];
+// Re-export Oklch class from color for convenience
+export type { Oklch } from "./color";
 
-// Palette using OKLCH tuples (for definition)
+// Palette using Oklch colors (for definition)
+import type { Oklch } from "./color";
 export interface OklchPalette {
-  [key: string]: OklchColor;
+  [key: string]: Oklch;
 }
 
 // Global color adjustments applied to the palette

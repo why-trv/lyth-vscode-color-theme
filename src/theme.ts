@@ -1,5 +1,6 @@
-import type { Theme, Palette, ThemeDefinition, OklchPalette, OklchColor } from "./types";
-import { createSemanticTokens, createTokens, applyAdjustments, oklchToHex } from "./utils";
+import type { Theme, Palette, ThemeDefinition, OklchPalette } from "./types";
+import { createSemanticTokens, createTokens } from "./utils";
+import { Oklch } from "./color";
 
 // Registry of theme definitions
 const themeRegistry = new Map<string, ThemeDefinition>();
@@ -44,8 +45,8 @@ export function resolveTheme(name: string): Palette {
   // Convert to hex palette, applying adjustments if present
   const hexPalette: Palette = {};
   for (const [key, color] of Object.entries(oklchPalette)) {
-    const adjustedColor = adjustments ? applyAdjustments(color, adjustments) : color;
-    hexPalette[key] = oklchToHex(adjustedColor);
+    const adjustedColor = adjustments ? color.adjust(adjustments) : color;
+    hexPalette[key] = adjustedColor.toHex();
   }
 
   return hexPalette;
