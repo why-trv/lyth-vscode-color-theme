@@ -25,7 +25,7 @@ const definition: ThemeDefinition = {
     number: lch(0.76, 0.128, 50),
     numberExtras: lch(0.68, 0.128, 50), // E.g. exponent, suffix etc.
     class: lch(0.73, 0.1, 357),
-    namespacePrefix: lch(0.6, 0.06, 357),
+    namespacePrefix: lch(0.62, 0.1, 357),
     lambdaReturnType: lch(0.745, 0.073, 78.8),
     function: lch(0.75, 0.12, 241.4),
     specialFunction: lch(0.72, 0.091, 270.7),

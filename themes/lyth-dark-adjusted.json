@@ -24,7 +24,7 @@
     "git.blame.editorDecorationForeground": "#3b4d44"
   },
   "semanticTokenColors": {
-    "namespace": "#a37475",
+    "namespace": "#bd6e72",
     "macro": "#1c9586",
     "typeParameter": {
       "italic": true
@@ -247,12 +247,12 @@
       }
     },
     {
-      "name": "Namespace Prefix",
+      "name": "Scope Resolution",
       "scope": [
         "entity.name.scope-resolution"
       ],
       "settings": {
-        "foreground": "#a37475"
+        "foreground": "#e29093"
       }
     },
     {

@@ -224,8 +224,8 @@ export function createTheme(name: string, palette: Palette) {
       // TODO: Find a way to differentiate between template declaration and
       // instantiation (and un-bold the latter)
       [
-        "Namespace Prefix",
-        palette.namespacePrefix,
+        "Scope Resolution", // Could be class or namespace
+        palette.class, // Default to class
         ["entity.name.scope-resolution"],
       ],
       [
