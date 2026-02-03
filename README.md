@@ -40,6 +40,7 @@ Token scopes differ depending on the language server used (`clangd` or `cpptools
 ## Goals / Considerations
 
 - Use OKLCH, it's much easier to shift colors around.
+- Deriving themes should be easy. You shouldn't need to redefine lots of colors to tweak overall brightness, contrast etc.
 - Use neutral gray backgrounds. Tinting is likely to mess with color temperature perception when doing GUI / graphics design work.
 - Make use of lightness to differentiate stuff. Let more 'technical' bits like punctuation, namespace prefixes and casts fade to background.
 - Stuff like `&` for references and `*` for pointers should be contrasting enough to easily notice.
