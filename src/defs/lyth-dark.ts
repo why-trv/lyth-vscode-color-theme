@@ -35,7 +35,7 @@ const definition: ThemeDefinition = {
     this: lch(0.649, 0.213, 349.3),
     memberVar: lch(0.83, 0.04, 357),
     constantVar: lch(0.83, 0.04, 290),
-    templateArg: lch(0.729, 0.089, 150),
+    templateArg: lch(0.73, 0.088, 18),
     argument: lch(0.828, 0, 0),
     tsPrimitive: lch(0.7, 0.129, 330),
     //
