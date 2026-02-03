@@ -1,12 +1,78 @@
 import type {
-  Color, 
+  Color,
   FontStyle,
-  ScopeDefinition,  
-  TokenItem, 
+  ScopeDefinition,
+  TokenItem,
   TokenSettings,
   SemanticTokenSettings,
   SemanticTokenColors,
 } from "./types";
+
+// sRGB hex to OKLCH conversion (for reference/migration)
+export function hexToOklch(hex: string): { L: number; C: number; H: number } {
+  const r = parseInt(hex.slice(1, 3), 16) / 255;
+  const g = parseInt(hex.slice(3, 5), 16) / 255;
+  const b = parseInt(hex.slice(5, 7), 16) / 255;
+
+  // sRGB → Linear sRGB
+  const toLinear = (c: number) =>
+    c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  const lr = toLinear(r), lg = toLinear(g), lb = toLinear(b);
+
+  // Linear sRGB → OKLab
+  const l = Math.cbrt(0.4122214708 * lr + 0.5363325363 * lg + 0.0514459929 * lb);
+  const m = Math.cbrt(0.2119034982 * lr + 0.6806995451 * lg + 0.1073969566 * lb);
+  const s = Math.cbrt(0.0883024619 * lr + 0.2817188376 * lg + 0.6299787005 * lb);
+
+  const L = 0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s;
+  const a = 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s;
+  const bVal = 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s;
+
+  // OKLab → OKLCH
+  const C = Math.sqrt(a * a + bVal * bVal);
+  let H = (Math.atan2(bVal, a) * 180) / Math.PI;
+  if (H < 0) H += 360;
+
+  return {
+    L: Math.round(L * 1000) / 1000,
+    C: Math.round(C * 1000) / 1000,
+    H: Math.round(H * 10) / 10,
+  };
+}
+
+// OKLCH to sRGB hex conversion
+// L: lightness (0-1), C: chroma (0-0.4+), H: hue (0-360), alpha: opacity (0-1, optional)
+export function oklch(L: number, C: number, H: number, alpha?: number): Color {
+  // OKLCH → OKLab
+  const hRad = (H * Math.PI) / 180;
+  const a = C * Math.cos(hRad);
+  const b = C * Math.sin(hRad);
+
+  // OKLab → Linear sRGB
+  const l_ = L + 0.3963377774 * a + 0.2158037573 * b;
+  const m_ = L - 0.1055613458 * a - 0.0638541728 * b;
+  const s_ = L - 0.0894841775 * a - 1.2914855480 * b;
+
+  const l = l_ * l_ * l_;
+  const m = m_ * m_ * m_;
+  const s = s_ * s_ * s_;
+
+  const lr = +4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s;
+  const lg = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s;
+  const lb = -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s;
+
+  // Linear sRGB → sRGB (gamma correction)
+  const toSrgb = (c: number) =>
+    c <= 0.0031308 ? 12.92 * c : 1.055 * Math.pow(c, 1 / 2.4) - 0.055;
+
+  const r = Math.round(Math.max(0, Math.min(1, toSrgb(lr))) * 255);
+  const g = Math.round(Math.max(0, Math.min(1, toSrgb(lg))) * 255);
+  const bVal = Math.round(Math.max(0, Math.min(1, toSrgb(lb))) * 255);
+
+  const toHex = (n: number) => n.toString(16).padStart(2, "0");
+  const alphaHex = alpha !== undefined ? toHex(Math.round(alpha * 255)) : "";
+  return `#${toHex(r)}${toHex(g)}${toHex(bVal)}${alphaHex}` as Color;
+}
 
 type TokenDefinition = [
   name: string,
@@ -48,8 +114,8 @@ export function createSemanticTokens(
       settings = { fontStyle: settings };
     }
 
-    if (typeof settings === 'string' 
-       || (typeof settings === 'object' && !Array.isArray(settings))) {      
+    if (typeof settings === 'string'
+       || (typeof settings === 'object' && !Array.isArray(settings))) {
       result[scope] = settings as SemanticTokenSettings;
     } else if (Array.isArray(settings)) {
       let color: Color | undefined;
@@ -85,14 +151,14 @@ export function createSemanticTokens(
 
 // Allows definition of token colors using a terser array syntax, e.g.
 // [
-//   ["Comment", "#afafaf, "italic", ["comment", "smth.else"]], 
+//   ["Comment", "#afafaf, "italic", ["comment", "smth.else"]],
 //   ["Cast", colors.cast, "keyword.operator.cast"], ...
 // ]
 // instead of the regular
-// [{ 
-//   name: "Comment", 
-//   scope: ["comment", "smth.else"], 
-//   settings: { foreground: "#afafaf", fontStyle: "italic" } 
+// [{
+//   name: "Comment",
+//   scope: ["comment", "smth.else"],
+//   settings: { foreground: "#afafaf", fontStyle: "italic" }
 // }, ...]
 export function createTokens(definitions: TokenDefinition[]): TokenItem[] {
   return definitions.map((def) => {

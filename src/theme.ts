@@ -12,6 +12,9 @@ export function createTheme(name: string, palette: Palette) {
       "sideBarTitle.foreground": "#bbbbbb",
       "sideBar.background": palette.sidebarBg,
 
+      "editorCursor.foreground": palette.cursor,
+      "editorCursor.background": palette.cursorBg,
+
       "editor.lineHighlightBackground": palette.lineHighlightBg,
       "editor.lineHighlightBorder": palette.lineHighlightBorder,
       "editor.wordHighlightBackground": palette.wordHighlightBg,
@@ -106,7 +109,7 @@ export function createTheme(name: string, palette: Palette) {
       ],
       [
         "Primitive Type",
-        palette.altKeyword,
+        palette.primitiveType,
         [
           // "storage.type",
           "storage.type.primitive",
