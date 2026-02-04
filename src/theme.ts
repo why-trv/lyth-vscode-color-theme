@@ -182,6 +182,10 @@ export function createTheme(name: string, palette: Palette) {
         ["storage.modifier.pointer", "storage.modifier.reference"],
       ],
       ["Cast", palette.cast, ["keyword.operator.cast"]],
+      ["Static Cast", palette.staticCast, ["keyword.operator.cast.static_cast"]],
+      ["Dynamic Cast", palette.dynamicCast, ["keyword.operator.cast.dynamic_cast"]],
+      ["Reinterpret Cast", palette.reinterpretCast, ["keyword.operator.cast.reinterpret_cast"]],
+      ["Const Cast", palette.constCast, ["keyword.operator.cast.const_cast"]],
       [
         "Tag",
         palette.tag,

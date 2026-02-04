@@ -194,7 +194,43 @@
         "keyword.operator.cast"
       ],
       "settings": {
-        "foreground": "#6f4f86"
+        "foreground": "#9a64b2"
+      }
+    },
+    {
+      "name": "Static Cast",
+      "scope": [
+        "keyword.operator.cast.static_cast"
+      ],
+      "settings": {
+        "foreground": "#724e83"
+      }
+    },
+    {
+      "name": "Dynamic Cast",
+      "scope": [
+        "keyword.operator.cast.dynamic_cast"
+      ],
+      "settings": {
+        "foreground": "#a871c0"
+      }
+    },
+    {
+      "name": "Reinterpret Cast",
+      "scope": [
+        "keyword.operator.cast.reinterpret_cast"
+      ],
+      "settings": {
+        "foreground": "#a871c0"
+      }
+    },
+    {
+      "name": "Const Cast",
+      "scope": [
+        "keyword.operator.cast.const_cast"
+      ],
+      "settings": {
+        "foreground": "#a871c0"
       }
     },
     {

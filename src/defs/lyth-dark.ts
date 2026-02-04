@@ -18,7 +18,13 @@ const definition: ThemeDefinition = {
     misc: lch(0.62, 0, 0),
     operator: lch(0.82, 0.066, 230),
     ptrAndRef: lch(0.82, 0.066, 230),
-    cast: lch(0.48, 0.092, 290),
+
+    cast: lch(0.586, 0.129, 295),
+    staticCast: lch(0.48, 0.092, 295), // Dim static cast (it's mostly visual noise)
+    dynamicCast: lch(0.63, 0.129, 295), // Emphasize dynamic cast
+    reinterpretCast: lch(0.63, 0.129, 295), // Emphasize reinterpret cast
+    constCast: lch(0.63, 0.129, 295), // Emphasize const cast
+
     string: lch(0.78, 0.115, 140),
     stringTemplate: lch(0.82, 0.1, 200),
     escapeChar: lch(0.78, 0.12, 170),
