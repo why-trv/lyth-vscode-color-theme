@@ -11,6 +11,7 @@
     "editorCursor.background": "#000000",
     "editor.lineHighlightBackground": "#252525",
     "editor.lineHighlightBorder": "#252525",
+    "editor.inactiveLineHighlightBackground": "#1f1f1f",
     "editor.wordHighlightBackground": "#5252523a",
     "editor.wordHighlightBorder": "#525252",
     "editor.selectionBackground": "#2e2e2e",
@@ -20,12 +21,12 @@
     "editor.findMatchBackground": "#333333",
     "editor.findMatchHighlightBackground": "#2e2e2e",
     "editor.findMatchHighlightBorder": "#bebebe",
-    "editorBracketHighlight.foreground1": "#8c8c8c",
-    "editorBracketHighlight.foreground2": "#8c8c8c",
-    "editorBracketHighlight.foreground3": "#8c8c8c",
-    "editorBracketHighlight.foreground4": "#8c8c8c",
-    "editorBracketHighlight.foreground5": "#8c8c8c",
-    "editorBracketHighlight.foreground6": "#8c8c8c",
+    "editorBracketHighlight.foreground1": "#898989",
+    "editorBracketHighlight.foreground2": "#898989",
+    "editorBracketHighlight.foreground3": "#898989",
+    "editorBracketHighlight.foreground4": "#898989",
+    "editorBracketHighlight.foreground5": "#898989",
+    "editorBracketHighlight.foreground6": "#898989",
     "editorBracketHighlight.unexpectedBracket.background": "#1f1f1f",
     "editorBracketHighlight.unexpectedBracket.foreground": "#8f8f8f",
     "git.blame.editorDecorationForeground": "#474747"
@@ -49,7 +50,7 @@
     "type.defaultLibrary": "#7c7c7c",
     "class.deduced": "#7c7c7c",
     "variable.readonly": "#c7c7c7",
-    "bracket": "#8c8c8c"
+    "bracket": "#898989"
   },
   "tokenColors": [
     {

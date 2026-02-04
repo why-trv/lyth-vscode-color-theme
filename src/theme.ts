@@ -88,6 +88,7 @@ export function createTheme(name: string, palette: Palette) {
 
       "editor.lineHighlightBackground": palette.lineHighlightBg,
       "editor.lineHighlightBorder": palette.lineHighlightBorder,
+      "editor.inactiveLineHighlightBackground": palette.inactiveLineHighlightBg,
       "editor.wordHighlightBackground": palette.wordHighlightBg,
       "editor.wordHighlightBorder": palette.wordHighlightBorder,
 
