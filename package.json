@@ -19,6 +19,21 @@
         "path": "./themes/lyth-dark.json"
       },
       {
+        "label": "Lyth Dark Alt",
+        "uiTheme": "vs-dark",
+        "path": "./themes/lyth-dark-alt.json"
+      },
+      {
+        "label": "Lyth Dark Alt 2",
+        "uiTheme": "vs-dark",
+        "path": "./themes/lyth-dark-alt-2.json"
+      },
+      {
+        "label": "Lyth Dark Alt 3",
+        "uiTheme": "vs-dark",
+        "path": "./themes/lyth-dark-alt-3.json"
+      },
+      {
         "label": "Lyth Dark Lum Tweak",
         "uiTheme": "vs-dark",
         "path": "./themes/lyth-dark-lum-tweak.json"
