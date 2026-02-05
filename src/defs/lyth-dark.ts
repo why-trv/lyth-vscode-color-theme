@@ -2,6 +2,7 @@ import type { ThemeDefinition } from "../types";
 import { lch } from "../color";
 
 const palette = {
+  foreground: lch(0.85, 0, 0),
   border: lch(0.21, 0, 0),
 };
 
@@ -11,7 +12,7 @@ const definition: ThemeDefinition = {
   colors: {
     editor: {
       background: lch(0.225, 0, 0),
-      foreground: lch(0.85, 0, 0),
+      foreground: palette.foreground,
       lineHighlightBackground: lch(0.264, 0.024, 290),
       lineHighlightBorder: lch(0.264, 0.024, 290),
       inactiveLineHighlightBackground: lch(0.24, 0, 290),
@@ -92,6 +93,29 @@ const definition: ThemeDefinition = {
       blame: {
         editorDecorationForeground: lch(0.397, 0.027, 143.4),
       },
+    },
+    terminal: {
+      foreground: palette.foreground,
+      ansiBlack: lch(0.404, 0.032, 280.2),
+      ansiRed: lch(0.756, 0.13, 2.8),
+      ansiGreen: lch(0.858, 0.11, 140),
+      ansiYellow: lch(0.919, 0.07, 86.5),
+      ansiBlue: lch(0.766, 0.111, 259.9),
+      ansiMagenta: lch(0.87, 0.075, 336.3),
+      ansiCyan: lch(0.858, 0.079, 182.7),
+      ansiWhite: lch(0.817, 0.04, 272.9),
+      ansiBrightBlack: lch(0.477, 0.034, 278.6),
+      ansiBrightRed: lch(0.756, 0.13, 2.8),
+      ansiBrightGreen: lch(0.858, 0.109, 142.7),
+      ansiBrightYellow: lch(0.919, 0.07, 86.5),
+      ansiBrightBlue: lch(0.766, 0.111, 259.9),
+      ansiBrightMagenta: lch(0.87, 0.075, 336.3),
+      ansiBrightCyan: lch(0.858, 0.079, 182.7),
+      ansiBrightWhite: lch(0.751, 0.04, 273.9),
+    },
+    terminalCursor: {
+      background: lch(0.243, 0.03, 283.9),
+      foreground: lch(0.923, 0.024, 30.5),
     },
   },
   tokens: {
