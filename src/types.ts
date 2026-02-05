@@ -70,6 +70,14 @@ export interface OklchPalette {
   [key: string]: Oklch;
 }
 
+// Nested palette value: either an Oklch color or a nested object
+export type NestedOklchValue = Oklch | { [key: string]: NestedOklchValue };
+
+// Nested palette that allows grouping colors by prefix
+export interface NestedOklchPalette {
+  [key: string]: NestedOklchValue;
+}
+
 // Global color adjustments applied to the palette
 export interface ColorAdjustments {
   brightness?: number;   // -1 to 1: shifts L
@@ -88,6 +96,7 @@ export interface ThemeDefinition {
   name: string;
   uiTheme?: UiTheme;                    // VSCode UI theme (default: "vs-dark")
   extends?: string;                     // Parent theme name
-  palette?: Partial<OklchPalette>;      // Base or override colors
+  colors?: NestedOklchPalette;          // UI/workbench colors (supports nesting, flattened to dot-notation)
+  tokens?: OklchPalette;                // Token colors for syntax highlighting
   adjustments?: ColorAdjustments;       // Replaces parent adjustments
 }

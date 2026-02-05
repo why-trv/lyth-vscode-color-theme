@@ -4,7 +4,7 @@ import { lch } from "../color";
 const definition: ThemeDefinition = {
   name: "Lyth Dark Alt 2",
   extends: "Lyth Dark",
-  palette: {
+  tokens: {
     number: lch(0.76, 0.128, 50),
     numberExtras: lch(0.68, 0.128, 50),
     class: lch(0.71, 0.06, 135),

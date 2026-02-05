@@ -4,11 +4,68 @@ import { lch } from "../color";
 const definition: ThemeDefinition = {
   name: "Lyth Dark",
   uiTheme: "vs-dark",
-  palette: {
-    background: lch(0.225, 0, 0),
-    sidebarBg: lch(0.223, 0, 0),
-    foreground: lch(0.85, 0, 0),
-    altForeground: lch(0.88, 0, 0),
+  colors: {
+    editor: {
+      background: lch(0.225, 0, 0),
+      foreground: lch(0.85, 0, 0),
+      lineHighlightBackground: lch(0.264, 0.024, 290),
+      lineHighlightBorder: lch(0.264, 0.024, 290),
+      inactiveLineHighlightBackground: lch(0.24, 0, 290),
+      wordHighlightBackground: lch(0.437, 0.024, 230, 0.227),
+      wordHighlightBorder: lch(0.437, 0.024, 230),
+      selectionBackground: lch(0.3, 0.02, 290),
+      inactiveSelectionBackground: lch(0.28, 0.01, 290),
+      selectionHighlightBackground: lch(0.27, 0.01, 290),
+      selectionHighlightBorder: lch(0.35, 0.02, 290),
+      findMatchBackground: lch(0.32, 0.15, 20),
+      findMatchHighlightBackground: lch(0.3, 0.15, 20),
+      findMatchHighlightBorder: lch(0.8, 0.02, 290),
+    },
+    editorCursor: {
+      foreground: lch(0.75, 0.20, 290),
+      background: lch(0.0, 0, 0),
+    },
+    editorBracketHighlight: {
+      foreground1: lch(0.63, 0.05, 0),
+      foreground2: lch(0.63, 0.05, 295),
+      foreground3: lch(0.63, 0.05, 0),
+      foreground4: lch(0.63, 0.05, 295),
+      foreground5: lch(0.63, 0.05, 0),
+      foreground6: lch(0.63, 0.05, 295),
+      unexpectedBracket: {
+        foreground: lch(0.65, 0.208, 22.2),
+        background: lch(0.239, 0.045, 17.8),
+      },
+    },
+    list: {
+      activeSelectionBackground: lch(0.34, 0.09, 255),
+      inactiveSelectionBackground: lch(0.34, 0.03, 255),
+      focusOutline: lch(0.5, 0.19, 255),
+    },
+    sideBar: {
+      background: lch(0.236, 0, 0),
+      border: lch(0.21, 0, 0),
+    },
+    sideBarTitle: {
+      foreground: lch(0.75, 0, 0),
+    },
+    sideBarSectionHeader: {
+      background: lch(0.26, 0.005, 290),
+      border: lch(0.21, 0, 0),
+    },
+    activityBarBadge: {
+      background: lch(0.55, 0.15, 250),
+    },
+    statusBar: {
+      border: lch(0.21, 0, 0),
+    },
+    git: {
+      blame: {
+        editorDecorationForeground: lch(0.397, 0.027, 143.4),
+      },
+    },
+  },
+  tokens: {
     comment: lch(0.45, 0.02, 295),
     keyword: lch(0.586, 0.129, 295),
     keywordOther: lch(0.586, 0.129, 295),
@@ -18,18 +75,17 @@ const definition: ThemeDefinition = {
     misc: lch(0.62, 0, 0),
     operator: lch(0.82, 0.066, 230),
     ptrAndRef: lch(0.82, 0.066, 230),
-
     cast: lch(0.586, 0.129, 295),
     staticCast: lch(0.48, 0.092, 295), // Dim static cast (it's mostly visual noise)
     dynamicCast: lch(0.63, 0.129, 295), // Emphasize dynamic cast
     reinterpretCast: lch(0.63, 0.129, 295), // Emphasize reinterpret cast
     constCast: lch(0.63, 0.129, 295), // Emphasize const cast
-
     string: lch(0.78, 0.115, 140),
     stringTemplate: lch(0.82, 0.1, 200),
     escapeChar: lch(0.78, 0.12, 170),
     number: lch(0.76, 0.128, 50),
     numberExtras: lch(0.68, 0.128, 50), // E.g. exponent, suffix etc.
+    color: lch(0.88, 0, 0),
     class: lch(0.73, 0.1, 7),
     namespacePrefix: lch(0.62, 0.1, 7),
     lambdaReturnType: lch(0.745, 0.073, 78.8),
@@ -39,45 +95,16 @@ const definition: ThemeDefinition = {
     invalid: lch(0.628, 0.208, 22.2),
     tag: lch(0.658, 0.145, 19.4),
     this: lch(0.649, 0.213, 349.3),
+    var: lch(0.85, 0, 0),
     memberVar: lch(0.83, 0.04, 7),
     constantVar: lch(0.83, 0.04, 290),
     templateArg: lch(0.73, 0.088, 18),
+    templateArgName: lch(0.85, 0, 0),
     argument: lch(0.828, 0, 0),
     tsPrimitive: lch(0.7, 0.129, 330),
-    //
-    cursor: lch(0.75, 0.20, 290),
-    cursorBg: lch(0.0, 0, 0),
-    lineHighlightBg: lch(0.264, 0.024, 290),
-    lineHighlightBorder: lch(0.264, 0.024, 290),
-    inactiveLineHighlightBg: lch(0.24, 0, 290),
-    wordHighlightBg: lch(0.437, 0.024, 230, 0.227),
-    wordHighlightBorder: lch(0.437, 0.024, 230),
-    selectionBg: lch(0.3, 0.02, 290),
-    inactiveSelectionBg: lch(0.28, 0.01, 290),
-    selectionHighlightBg: lch(0.27, 0.01, 290),
-    selectionHighlightBorder: lch(0.35, 0.02, 290),
-    findMatchBg: lch(0.32, 0.15, 20),
-    // findMatchHighlightFg
-    // findMatchFg
-    findMatchHighlightBg: lch(0.3, 0.15, 20),
-    // findMatchHighlightFg
-    findMatchHighlightBorder: lch(0.8, 0.02, 290),
-    //
     regexp: lch(0.705, 0.095, 211.4),
     changed: lch(0.728, 0.148, 317.1),
-    //
     bracket: lch(0.63, 0.05, 0),
-    bracket1: lch(0.63, 0.05, 0),
-    bracket2: lch(0.63, 0.05, 295),
-    bracket3: lch(0.63, 0.05, 0),
-    bracket4: lch(0.63, 0.05, 295),
-    bracket5: lch(0.63, 0.05, 0),
-    bracket6: lch(0.63, 0.05, 295),
-    unexpectedBracket: lch(0.65, 0.208, 22.2),
-    unexpectedBracketBg: lch(0.239, 0.045, 17.8),
-    //
-    gitBlame: lch(0.397, 0.027, 143.4),
-    //
     jsonLevel0: lch(0.81, 0, 0),
     jsonLevel1: lch(0.81, 0.06, 280),
     jsonLevel2: lch(0.81, 0.06, 320),
@@ -87,7 +114,6 @@ const definition: ThemeDefinition = {
     jsonLevel6: lch(0.81, 0.06, 120),
     jsonLevel7: lch(0.81, 0.06, 160),
     jsonLevel8: lch(0.81, 0.06, 200),
-    //
     mdPlain: lch(0.882, 0, 0),
     mdMisc: lch(0.521, 0.031, 226.1),
     mdHeading: lch(0.876, 0.119, 125.8),

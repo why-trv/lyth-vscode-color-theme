@@ -1,6 +1,25 @@
-import type { Theme, Palette, ThemeDefinition, OklchPalette } from "./types";
+import type { Theme, Palette, ThemeDefinition, OklchPalette, NestedOklchPalette, NestedOklchValue } from "./types";
 import { createSemanticTokens, createTokens } from "./utils";
 import { Oklch } from "./color";
+
+// Flatten a nested palette to dot-notation keys
+// e.g. { editor: { background: color } } -> { "editor.background": color }
+function flattenPalette(nested: NestedOklchPalette, prefix = ""): OklchPalette {
+  const result: OklchPalette = {};
+
+  for (const [key, value] of Object.entries(nested)) {
+    const fullKey = prefix ? `${prefix}.${key}` : key;
+
+    if (value instanceof Oklch) {
+      result[fullKey] = value;
+    } else if (typeof value === "object" && value !== null) {
+      // Recursively flatten nested objects
+      Object.assign(result, flattenPalette(value as NestedOklchPalette, fullKey));
+    }
+  }
+
+  return result;
+}
 
 // Registry of theme definitions
 const themeRegistry = new Map<string, ThemeDefinition>();
@@ -22,21 +41,16 @@ export function resolveTheme(name: string): Palette {
     throw new Error(`Theme "${name}" not found in registry`);
   }
 
-  // Start with parent's palette if extending, otherwise empty
-  let oklchPalette: OklchPalette = {};
+  // Resolve the OKLCH palette (handles inheritance)
+  const oklchPalette = resolveOklchPalette(def.extends);
 
-  if (def.extends) {
-    const parentDef = themeRegistry.get(def.extends);
-    if (!parentDef) {
-      throw new Error(`Parent theme "${def.extends}" not found for "${name}"`);
-    }
-    // Recursively resolve parent to get its merged palette (without adjustments applied)
-    oklchPalette = resolveOklchPalette(def.extends);
+  // Merge in this theme's colors (flatten nested objects) and tokens
+  if (def.colors) {
+    const flatColors = flattenPalette(def.colors);
+    Object.assign(oklchPalette, flatColors);
   }
-
-  // Merge in this theme's palette overrides
-  if (def.palette) {
-    oklchPalette = { ...oklchPalette, ...def.palette } as OklchPalette;
+  if (def.tokens) {
+    Object.assign(oklchPalette, def.tokens);
   }
 
   // Apply this theme's adjustments (replaces parent's adjustments)
@@ -53,68 +67,45 @@ export function resolveTheme(name: string): Palette {
 }
 
 // Internal: resolve to OKLCH palette without applying adjustments (for inheritance)
-function resolveOklchPalette(name: string): OklchPalette {
-  const def = themeRegistry.get(name);
+function resolveOklchPalette(parentName?: string): OklchPalette {
+  if (!parentName) {
+    return {};
+  }
+
+  const def = themeRegistry.get(parentName);
   if (!def) {
-    throw new Error(`Theme "${name}" not found in registry`);
+    throw new Error(`Theme "${parentName}" not found in registry`);
   }
 
-  let oklchPalette: OklchPalette = {};
+  // Start with parent's parent
+  const oklchPalette = resolveOklchPalette(def.extends);
 
-  if (def.extends) {
-    oklchPalette = resolveOklchPalette(def.extends);
+  // Merge in this theme's colors and tokens
+  if (def.colors) {
+    const flatColors = flattenPalette(def.colors);
+    Object.assign(oklchPalette, flatColors);
   }
-
-  if (def.palette) {
-    oklchPalette = { ...oklchPalette, ...def.palette } as OklchPalette;
+  if (def.tokens) {
+    Object.assign(oklchPalette, def.tokens);
   }
 
   return oklchPalette;
 }
 
 export function createTheme(name: string, palette: Palette) {
+  // Extract UI colors (dot-notation keys) from palette
+  const uiColors: Palette = {};
+  for (const [key, value] of Object.entries(palette)) {
+    if (key.includes(".") && value) {
+      uiColors[key] = value;
+    }
+  }
+
   const theme: Theme = {
     name,
     semanticHighlighting: true,
     colors: {
-      "editor.background": palette.background,
-      "editor.foreground": palette.foreground,
-      "activityBarBadge.background": "#007acc",
-      "sideBarTitle.foreground": "#bbbbbb",
-      "sideBar.background": palette.sidebarBg,
-
-      "editorCursor.foreground": palette.cursor,
-      "editorCursor.background": palette.cursorBg,
-
-      "editor.lineHighlightBackground": palette.lineHighlightBg,
-      "editor.lineHighlightBorder": palette.lineHighlightBorder,
-      "editor.inactiveLineHighlightBackground": palette.inactiveLineHighlightBg,
-      "editor.wordHighlightBackground": palette.wordHighlightBg,
-      "editor.wordHighlightBorder": palette.wordHighlightBorder,
-
-      "editor.selectionBackground": palette.selectionBg,
-      "editor.inactiveSelectionBackground": palette.inactiveSelectionBg,
-      "editor.selectionHighlightBackground": palette.selectionHighlightBg,
-      "editor.selectionHighlightBorder": palette.selectionHighlightBorder,
-
-      "editor.findMatchBackground": palette.findMatchBg,
-      "editor.findMatchForeground": palette.findMatchFg,
-      "editor.findMatchBorder": palette.findMatchBorder,
-      "editor.findMatchHighlightBackground": palette.findMatchHighlightBg,
-      "editor.findMatchHighlightForeground": palette.findMatchHighlightFg,
-      "editor.findMatchHighlightBorder": palette.findMatchHighlightBorder,
-
-      "editorBracketHighlight.foreground1": palette.bracket1,
-      "editorBracketHighlight.foreground2": palette.bracket2,
-      "editorBracketHighlight.foreground3": palette.bracket3,
-      "editorBracketHighlight.foreground4": palette.bracket4,
-      "editorBracketHighlight.foreground5": palette.bracket5,
-      "editorBracketHighlight.foreground6": palette.bracket6,
-      "editorBracketHighlight.unexpectedBracket.background":
-        palette.unexpectedBracketBg,
-      "editorBracketHighlight.unexpectedBracket.foreground":
-        palette.unexpectedBracket,
-      "git.blame.editorDecorationForeground": palette.gitBlame,
+      ...uiColors,
     },
     semanticTokenColors: createSemanticTokens({
       namespace: palette.namespacePrefix,
@@ -138,11 +129,11 @@ export function createTheme(name: string, palette: Palette) {
       ],
       [
         "Variables",
-        palette.foreground,
+        palette.var,
         ["variable", "string constant.other.placeholder"],
       ],
       ["Constant Variable", palette.constantVar, ["variable.other.constant"]],
-      ["Colors", palette.altForeground, ["constant.other.color"]],
+      ["Colors", palette.color, ["constant.other.color"]],
       ["Invalid", palette.invalid, ["invalid", "invalid.illegal"]],
       ["Keyword, Storage", palette.keyword, ["keyword", "storage.type"]],
       [
@@ -172,7 +163,7 @@ export function createTheme(name: string, palette: Palette) {
       ],
       [
         "Template Argument Name",
-        palette.foreground,
+        palette.templateArgName,
         ["entity.name.type.template.cpp"],
       ],
       ["Operator", palette.operator, ["keyword.operator"]],
@@ -303,7 +294,7 @@ export function createTheme(name: string, palette: Palette) {
       ],
       [
         "Local Variable Declaration",
-        palette.foreground,
+        palette.var,
         [
           // Workaround for local variable declaration to not be colored
           // the same as member variable declaration
