@@ -36,6 +36,8 @@
     "sideBarSectionHeader.border": "#181818",
     "activityBarBadge.background": "#0f74c5",
     "statusBar.border": "#181818",
+    "scrollbarSlider.background": "#625c892b",
+    "scrollbarSlider.hoverBackground": "#6358984d",
     "git.blame.editorDecorationForeground": "#3e4b3e"
   },
   "semanticTokenColors": {

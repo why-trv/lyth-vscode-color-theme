@@ -59,6 +59,10 @@ const definition: ThemeDefinition = {
     statusBar: {
       border: lch(0.21, 0, 0),
     },
+    scrollbarSlider: {
+      background: lch(0.5, 0.07, 290, 0.17),
+      hoverBackground: lch(0.5, 0.1, 290, 0.3),
+    },
     git: {
       blame: {
         editorDecorationForeground: lch(0.397, 0.027, 143.4),
