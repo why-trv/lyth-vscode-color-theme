@@ -111,18 +111,17 @@ export function createTheme(name: string, palette: Palette) {
       namespace: palette.namespacePrefix,
       macro: palette.macro,
       typeParameter: { italic: true },
+      // Some weird workaround the fact that we don't always get semantic info on `auto` in C++,
+      // e.g. sometimes it's just textmate scope 'storage.type.built-in.primitive.cpp'. One way to handle this
+      // could be to have built-in primitive types highlighted the same as keywords, but I'd like to avoid that.
       type: palette.class,
       "type.deduced": palette.keyword,
-      "type.defaultLibrary": palette.keyword,
+      "type.defaultLibrary": palette.primitiveType,
       "function.static": { italic: true },
       // class: [palette.class, ""],
       "class.declaration": "bold",
       "class.definition": "bold",
       "class.constructorOrDestructor": palette.function,
-      // These don't work reliably with `auto` in C++, i.e. some cases are handled and some are not,
-      // so commenting it out for now.
-      // "type.defaultLibrary": palette.keyword,
-      // "class.deduced": palette.keyword,
       "variable.readonly": palette.constantVar,
       bracket: palette.bracket,
     }),

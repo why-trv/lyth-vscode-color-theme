@@ -124,7 +124,7 @@ const definition: ThemeDefinition = {
     keywordOther: lch(0.586, 0.129, 295),
     keywordModifier: lch(0.586, 0.129, 295),
     keywordControl: lch(0.586, 0.129, 295),
-    primitiveType: lch(0.7, 0.129, 320),
+    primitiveType: lch(0.7, 0.129, 315),
     misc: lch(0.62, 0, 0),
     operator: lch(0.82, 0.066, 230),
     ptrAndRef: lch(0.82, 0.066, 230),
