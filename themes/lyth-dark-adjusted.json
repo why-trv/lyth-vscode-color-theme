@@ -76,6 +76,9 @@
     "typeParameter": {
       "italic": true
     },
+    "type": "#e29188",
+    "type.deduced": "#9a64b2",
+    "type.defaultLibrary": "#9a64b2",
     "function.static": {
       "italic": true
     },
@@ -86,8 +89,6 @@
       "fontStyle": "bold"
     },
     "class.constructorOrDestructor": "#85b0fc",
-    "type.defaultLibrary": "#9a64b2",
-    "class.deduced": "#9a64b2",
     "variable.readonly": "#d2c3de",
     "bracket": "#a87f7e"
   },
@@ -288,7 +289,9 @@
       "name": "Primitive Type",
       "scope": [
         "storage.type.primitive",
-        "storage.type.built-in"
+        "storage.type.built-in",
+        "storage.type.built-in.primitive",
+        "storage.type.built-in.primitive.cpp"
       ],
       "settings": {
         "foreground": "#d57fba"
@@ -297,8 +300,7 @@
     {
       "name": "Class, Support",
       "scope": [
-        "entity.name.type",
-        "support.type",
+        "entity.name.type.class",
         "support.class",
         "support.other.namespace.use.php",
         "meta.use.php",
