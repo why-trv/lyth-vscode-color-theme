@@ -22,8 +22,11 @@ const definition: ThemeDefinition = {
       findMatchHighlightBorder: lch(0.8, 0.02, 290),
     },
     editorCursor: {
-      foreground: lch(0.75, 0.20, 290),
+      foreground: lch(0.75, 0.2, 290),
       background: lch(0.0, 0, 0),
+    },
+    editorIndentGuide: {
+      background: lch(0.27, 0, 0),
     },
     editorBracketHighlight: {
       foreground1: lch(0.63, 0.05, 0),
@@ -36,6 +39,14 @@ const definition: ThemeDefinition = {
         foreground: lch(0.65, 0.208, 22.2),
         background: lch(0.239, 0.045, 17.8),
       },
+    },
+    editorBracketPairGuide: {
+      activeBackground1: lch(0.4, 0.05, 0),
+      activeBackground2: lch(0.4, 0.05, 295),
+      activeBackground3: lch(0.4, 0.05, 0),
+      activeBackground4: lch(0.4, 0.05, 295),
+      activeBackground5: lch(0.4, 0.05, 0),
+      activeBackground6: lch(0.4, 0.05, 295),
     },
     list: {
       activeSelectionBackground: lch(0.34, 0.09, 255),
