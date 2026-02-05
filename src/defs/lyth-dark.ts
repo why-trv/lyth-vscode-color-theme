@@ -1,6 +1,10 @@
 import type { ThemeDefinition } from "../types";
 import { lch } from "../color";
 
+const palette = {
+  border: lch(0.21, 0, 0),
+};
+
 const definition: ThemeDefinition = {
   name: "Lyth Dark",
   uiTheme: "vs-dark",
@@ -20,6 +24,16 @@ const definition: ThemeDefinition = {
       findMatchBackground: lch(0.32, 0.15, 20),
       findMatchHighlightBackground: lch(0.3, 0.15, 20),
       findMatchHighlightBorder: lch(0.8, 0.02, 290),
+    },
+    editorGroup: {
+      border: palette.border,
+    },
+    editorGroupHeader: {
+      border: palette.border,
+      tabsBorder: palette.border,
+    },
+    editorOverviewRuler: {
+      border: palette.border,
     },
     editorCursor: {
       foreground: lch(0.75, 0.2, 290),
@@ -55,20 +69,20 @@ const definition: ThemeDefinition = {
     },
     sideBar: {
       background: lch(0.236, 0, 0),
-      border: lch(0.21, 0, 0),
+      border: palette.border,
     },
     sideBarTitle: {
       foreground: lch(0.75, 0, 0),
     },
     sideBarSectionHeader: {
       background: lch(0.26, 0.005, 290),
-      border: lch(0.21, 0, 0),
+      border: palette.border,
     },
     activityBarBadge: {
       background: lch(0.55, 0.15, 250),
     },
     statusBar: {
-      border: lch(0.21, 0, 0),
+      border: palette.border,
     },
     scrollbarSlider: {
       background: lch(0.5, 0.07, 290, 0.17),
