@@ -1,28 +1,31 @@
-import { existsSync, readdirSync, rmSync } from "node:fs";
-import { execSync } from "node:child_process";
-import { homedir } from "node:os";
-import { join } from "node:path";
+import { existsSync, readdirSync, rmSync } from 'node:fs';
+import { execSync } from 'node:child_process';
+import { homedir } from 'node:os';
+import { join } from 'node:path';
 
-import { loadPackageJson } from "./package";
+import { loadPackageJson } from './package';
 
 const HOME = homedir();
-const VSCODE_PATH = join(HOME, ".vscode");
-const CURSOR_PATH = join(HOME, ".cursor");
+const APPS = [
+  { name: 'VS Code', path: join(HOME, '.vscode') },
+  { name: 'Cursor', path: join(HOME, '.cursor') },
+  { name: 'Antigravity', path: join(HOME, '.antigravity') },
+];
 
 const { name, version } = loadPackageJson();
 const THEME_PATH = `extensions/${name}-${version}`;
 
 const EXCLUDE_PATTERNS = [
-  ".*",           // Hidden files
-  "node_modules", // Dependencies
-  ".tsc",         // Build output
-  "*.vsix"        // VSCode extension package
+  '.*', // Hidden files
+  'node_modules', // Dependencies
+  '.tsc', // Build output
+  '*.vsix', // VSCode extension package
 ];
 
 // Convert patterns to rsync exclude arguments
-const RSYNC_EXCLUDE = EXCLUDE_PATTERNS
-  .map(pattern => `--exclude="${pattern}"`)
-  .join(" ");
+const RSYNC_EXCLUDE = EXCLUDE_PATTERNS.map(
+  (pattern) => `--exclude="${pattern}"`,
+).join(' ');
 
 // Clean up existing theme installations
 function cleanupExistingTheme(extensionsPath: string) {
@@ -45,22 +48,15 @@ function cleanupExistingTheme(extensionsPath: string) {
 }
 
 try {
-  // Check for VSCode extensions directory
-  if (existsSync(VSCODE_PATH)) {
-    console.log("Installing for VSCode...");
-    cleanupExistingTheme(VSCODE_PATH);
-    execSync(`rsync -av ${RSYNC_EXCLUDE} . "${join(VSCODE_PATH, THEME_PATH)}"`);
-    console.log("VSCode installation complete");
-  }
-
-  // Check for Cursor extensions directory
-  if (existsSync(CURSOR_PATH)) {
-    console.log("Installing for Cursor...");
-    cleanupExistingTheme(CURSOR_PATH);
-    execSync(`rsync -av ${RSYNC_EXCLUDE} . "${join(CURSOR_PATH, THEME_PATH)}"`);
-    console.log("Cursor installation complete");
+  for (const app of APPS) {
+    if (existsSync(app.path)) {
+      console.log(`Installing for ${app.name}...`);
+      cleanupExistingTheme(app.path);
+      execSync(`rsync -av ${RSYNC_EXCLUDE} . "${join(app.path, THEME_PATH)}"`);
+      console.log(`${app.name} installation complete`);
+    }
   }
 } catch (error) {
-  console.error("Installation failed:", error);
+  console.error('Installation failed:', error);
   process.exit(1);
-} 
+}
