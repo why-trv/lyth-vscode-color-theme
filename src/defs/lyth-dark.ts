@@ -1,17 +1,18 @@
-import type { ThemeDefinition } from "../types";
-import { lch } from "../color";
+import type { ThemeDefinition } from '../types';
+import { lch } from '../color';
 
 const palette = {
+  background: lch(0.225, 0, 0),
   foreground: lch(0.85, 0, 0),
   border: lch(0.21, 0, 0),
 };
 
 const definition: ThemeDefinition = {
-  name: "Lyth Dark",
-  uiTheme: "vs-dark",
+  name: 'Lyth Dark',
+  uiTheme: 'vs-dark',
   colors: {
     editor: {
-      background: lch(0.225, 0, 0),
+      background: palette.background,
       foreground: palette.foreground,
       lineHighlightBackground: lch(0.264, 0.024, 290),
       lineHighlightBorder: lch(0.264, 0.024, 290),
@@ -63,6 +64,9 @@ const definition: ThemeDefinition = {
       activeBackground5: lch(0.4, 0.05, 0),
       activeBackground6: lch(0.4, 0.05, 295),
     },
+    panel: {
+      border: palette.border,
+    },
     list: {
       activeSelectionBackground: lch(0.34, 0.09, 255),
       inactiveSelectionBackground: lch(0.34, 0.03, 255),
@@ -83,7 +87,19 @@ const definition: ThemeDefinition = {
       background: lch(0.55, 0.15, 250),
     },
     statusBar: {
+      foreground: palette.foreground.darken(0.05),
+      background: palette.background.brighten(0.02),
       border: palette.border,
+    },
+    statusBarItem: {
+      remoteBackground: lch(0.4, 0.05, 260),
+    },
+    button: {
+      background: lch(0.45, 0.11, 260),
+    },
+    textLink: {
+      foreground: lch(0.7, 0.13, 260),
+      activeForeground: lch(0.75, 0.14, 260),
     },
     scrollbarSlider: {
       background: lch(0.5, 0.07, 290, 0.17),
@@ -94,6 +110,16 @@ const definition: ThemeDefinition = {
         editorDecorationForeground: lch(0.397, 0.027, 143.4),
       },
     },
+    quickInput: {
+      background: lch(0.2622, 0.0039, 260),
+    },
+    quickInputTitle: {
+      background: lch(0.2622, 0.0039, 260),
+    },
+    quickInputList: {
+      focusBackground: lch(0.3616, 0.1069, 260),
+    },
+    focusBorder: lch(0.3616, 0.1069, 260),
     terminal: {
       foreground: palette.foreground,
       ansiBlack: lch(0.404, 0.032, 280.2),
