@@ -3,7 +3,7 @@
   "displayName": "Lyth VS Code Color Theme",
   "description": "An attempt at a decently semantic VS Code theme for C++",
   "version": "0.2.0",
-  "publisher": "Yuri Turov",
+  "publisher": "why-trv",
   "icon": "icon.png",
   "engines": {
     "vscode": "^1.96.0"
