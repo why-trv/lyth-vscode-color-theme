@@ -105,6 +105,18 @@ const definition: ThemeDefinition = {
       background: lch(0.5, 0.07, 290, 0.17),
       hoverBackground: lch(0.5, 0.1, 290, 0.3),
     },
+    peekView: {
+      border: lch(0.45, 0.11, 290),
+    },
+    peekViewTitle: {
+      background: lch(0.215, 0.01, 295),
+    },
+    peekViewEditor: {
+      background: lch(0.243, 0.008, 295),
+    },
+    peekViewResult: {
+      background: lch(0.243, 0.008, 295),
+    },
     git: {
       blame: {
         editorDecorationForeground: lch(0.397, 0.027, 143.4),
