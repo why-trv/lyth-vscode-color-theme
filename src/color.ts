@@ -24,6 +24,18 @@ export class Oklch {
     );
   }
 
+  withLightness(L: number): Oklch {
+    return this.with(L, undefined, undefined);
+  }
+
+  withChroma(C: number): Oklch {
+    return this.with(undefined, C, undefined);
+  }
+
+  withHue(H: number): Oklch {
+    return this.with(undefined, undefined, H);
+  }
+
   // Shift lightness by amount (-1 to 1)
   brighten(amount: number): Oklch {
     return this.with(clamp(this.L + amount, 0, 1));
