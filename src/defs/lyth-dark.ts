@@ -117,6 +117,12 @@ const definition: ThemeDefinition = {
     peekViewResult: {
       background: lch(0.243, 0.008, 295),
     },
+    diffEditor: {
+      insertedLineBackground: lch(0.23, 0.025, 160),
+      insertedTextBackground: lch(0.278, 0.045, 160),
+      removedLineBackground: lch(0.23, 0.025, 30),
+      removedTextBackground: lch(0.278, 0.045, 30),
+    },
     git: {
       blame: {
         editorDecorationForeground: lch(0.397, 0.027, 143.4),
